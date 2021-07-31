@@ -27,7 +27,7 @@ export default function Login() {
         "Content-type":"application/json"
       }
     }
-    fetch('/login', opts)
+    fetch(BackUrl+'/login', opts)
         .then(resp =>{
           if(resp.status === 200) return resp.json()
           else alert("wrong password/email")
@@ -35,8 +35,6 @@ export default function Login() {
         .then(data =>{
             console.log("this came from backend", data)
             sessionStorage.setItem("token", data.access_token);
-
-
         })
         .catch(error =>{
           console.error("there was an error", error)
@@ -44,9 +42,10 @@ export default function Login() {
   }
   return(
     <div className="login-wrapper">
-      <h1>Please Log In</h1>
+        <h1>Please Log In</h1>
         { token && token!=="" && token ===undefined ? ("you are logged in" + token):
-          <form >
+
+         <form >
         <fieldset>
         <label>
           <p>Email</p>
@@ -61,8 +60,8 @@ export default function Login() {
           <button type="submit" onClick={handleClick}>Submit</button>
         </div>
       </form>
+        }
 
-          }
 
     </div>
   )

@@ -1,7 +1,8 @@
 import './Login.css';
-import BaseUrl from "../BackUrl";
 import React, {useState} from "react";
 import BackUrl from "../BackUrl";
+
+
 
 export default function Signup() {
   const [username, setUsername] = useState("");
@@ -29,10 +30,7 @@ export default function Signup() {
         })
         .then(data =>{
             console.log("this came from backend", data)
-
-
-
-        })
+          })
         .catch(error =>{
           console.error("there was an error", error)
         })
