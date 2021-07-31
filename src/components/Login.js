@@ -1,21 +1,21 @@
 import React, {useState} from 'react';
 import './Login.css';
 import BackUrl from "../BackUrl";
-
-
+import { useHistory } from "react-router-dom"
+import {login, useAuth, logout} from "../authenticatiom/auth";
 
 export default function Login() {
+  const [logged] = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const token = sessionStorage.getItem("token");
-  console.log("this is your token: ",token)
+  const history = useHistory();
+
 
 
 
   const handleClick = (e) =>{
     e.preventDefault()
     console.log("you pressed login ")
-
     const opts={
       method:'POST',
 
@@ -27,14 +27,18 @@ export default function Login() {
         "Content-type":"application/json"
       }
     }
-    fetch(BackUrl+'/login', opts)
+    fetch(BackUrl+'login', opts)
         .then(resp =>{
           if(resp.status === 200) return resp.json()
           else alert("wrong password/email")
         })
         .then(data =>{
-            console.log("this came from backend", data)
-            sessionStorage.setItem("token", data.access_token);
+           if(data.access_token){
+                    login(data)
+                    history.push("/dashboard")}
+           else {
+          alert("Please type in correct username/password")
+        }
         })
         .catch(error =>{
           console.error("there was an error", error)
@@ -43,9 +47,7 @@ export default function Login() {
   return(
     <div className="login-wrapper">
         <h1>Please Log In</h1>
-        { token && token!=="" && token ===undefined ? ("you are logged in" + token):
-
-         <form >
+        {!logged? <form >
         <fieldset>
         <label>
           <p>Email</p>
@@ -60,9 +62,7 @@ export default function Login() {
           <button type="submit" onClick={handleClick}>Submit</button>
         </div>
       </form>
-        }
-
-
+            : <button onClick={() => logout()}>Logout</button>}
     </div>
   )
 }

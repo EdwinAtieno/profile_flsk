@@ -1,7 +1,25 @@
 import React from 'react';
+import BackUrl from "../BackUrl";
+import {authFetch} from "../authenticatiom/auth";
+import {useEffect,useState} from 'react';
 
 export default function Dashboard() {
-  return(
-    <h2>Dashboard</h2>
-  );
+  const [message, setMessage] = useState('')
+
+  useEffect(() => {
+    authFetch(BackUrl+'dashboard').then(response => {
+      if (response.status === 401){
+        setMessage("Sorry you aren't authorized!")
+        return null
+      }
+      return response.json()
+    }).then(response => {
+      if (response && response.message){
+        setMessage(response.message)
+      }
+    })
+  }, [])
+  return (
+    <h2>Secret: {message}</h2>
+  )
 }

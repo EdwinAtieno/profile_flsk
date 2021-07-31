@@ -1,6 +1,6 @@
 import Dashboard from "./components/Dashboard";
 import Home from "./components/Home";
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch,Link } from 'react-router-dom';
 import './App.css';
 import { useState } from 'react';
 import Login from "./components/Login";
@@ -15,8 +15,22 @@ function App() {
 
   return (
     <div className="wrapper">
-      <h1>Application</h1>
       <BrowserRouter>
+        <div>
+        <nav>
+          <h1>Application</h1>
+          <ul>
+            <li>
+              <Link to="/dashboard">Home</Link>
+            </li>
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
+            <li>
+              <Link to="/signup">Signup</Link>
+            </li>
+          </ul>
+        </nav>
         <Switch>
           <Route path="/dashboard">
             <Dashboard/>
@@ -34,6 +48,7 @@ function App() {
             <ProfileUpdate />
           </Route>
         </Switch>
+        </div>
       </BrowserRouter>
     </div>
   );
