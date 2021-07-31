@@ -1,13 +1,52 @@
 import React, {useState} from 'react';
 import './Login.css';
+import BackUrl from "../BackUrl";
+
+
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const token = sessionStorage.getItem("token");
+  console.log("this is your token: ",token)
+
+
+
+  const handleClick = (e) =>{
+    e.preventDefault()
+    console.log("you pressed login ")
+
+    const opts={
+      method:'POST',
+
+      body: JSON.stringify({
+      "email":email,
+      "password":password
+      }),
+        headers:{
+        "Content-type":"application/json"
+      }
+    }
+    fetch('/login', opts)
+        .then(resp =>{
+          if(resp.status === 200) return resp.json()
+          else alert("wrong password/email")
+        })
+        .then(data =>{
+            console.log("this came from backend", data)
+            sessionStorage.setItem("token", data.access_token);
+
+
+        })
+        .catch(error =>{
+          console.error("there was an error", error)
+        })
+  }
   return(
     <div className="login-wrapper">
       <h1>Please Log In</h1>
-      <form >
+        { token && token!=="" && token ===undefined ? ("you are logged in" + token):
+          <form >
         <fieldset>
         <label>
           <p>Email</p>
@@ -19,9 +58,12 @@ export default function Login() {
         </label>
           </fieldset>
         <div>
-          <button type="submit">Submit</button>
+          <button type="submit" onClick={handleClick}>Submit</button>
         </div>
       </form>
+
+          }
+
     </div>
   )
 }
