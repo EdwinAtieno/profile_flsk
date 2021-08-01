@@ -1,6 +1,7 @@
 import './Login.css';
 import React, {useState} from "react";
 import BackUrl from "../BackUrl";
+import {EmailCheck, Passwordcheck, PasswordValidator} from "./Checkups";
 
 
 
@@ -8,6 +9,7 @@ export default function Signup() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmpassword, setConfirmassword] = useState("");
 
   const handleClick = (e) =>{
     e.preventDefault()
@@ -23,17 +25,30 @@ export default function Signup() {
         "Content-type":"application/json"
       }
     }
-    fetch(BackUrl+'register', opts)
-        .then(resp =>{
-          if(resp.status === 200) return resp.json()
-          else alert("wrong password/email")
-        })
-        .then(data =>{
+
+
+    if(!EmailCheck(email)){
+            alert("wrong email formart")
+         }
+    if(!PasswordValidator(password)){
+        alert("weak password")
+    }
+    if(!Passwordcheck(password,confirmpassword)){
+        alert("password not matching")
+    }
+         else {
+      fetch(BackUrl + 'register', opts)
+          .then(resp => {
+            if (resp.status === 200) return resp.json()
+            else alert("wrong password/email")
+          })
+          .then(data => {
             console.log("this came from backend", data)
           })
-        .catch(error =>{
-          console.error("there was an error", error)
-        })
+          .catch(error => {
+            console.error("there was an error", error)
+          })
+    }
 
 
   }
@@ -56,11 +71,18 @@ export default function Signup() {
         </label>
         <label>
           <p>Confirm password</p>
-          <input type="password" placeholder="Confirm password"/>
+          <input type="password" placeholder="Confirm password" value={confirmpassword} onChange={(e) =>setConfirmassword(e.target.value)}/>
         </label>
         <div>
           <button type="submit" onClick={handleClick}>Signup</button>
         </div>
+        <form action="">
+                    <label >
+                        <h3>
+                        <a href="/login"> <p>Already have an account? </p></a>
+                            </h3>
+                    </label>
+                </form>
       </form>
     </div>
   )

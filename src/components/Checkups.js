@@ -9,3 +9,22 @@ export function EmailCheck (email) {
         return false;
     }
   }
+
+
+export function PasswordValidator (password) {
+    if (password.length > 8) {
+        return true
+    }
+    else{
+        return false;
+    }
+  }
+
+export function Passwordcheck (password, confirmpassword) {
+    if (password===confirmpassword) {
+        return true
+    }
+    else{
+        return false;
+    }
+  }

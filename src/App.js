@@ -17,20 +17,6 @@ function App() {
     <div className="wrapper">
       <BrowserRouter>
         <div>
-        <nav>
-          <h1>Application</h1>
-          <ul>
-            <li>
-              <Link to="/dashboard">Home</Link>
-            </li>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-            <li>
-              <Link to="/signup">Signup</Link>
-            </li>
-          </ul>
-        </nav>
         <Switch>
           <Route path="/dashboard">
            <PrivateRoute path="/dashboard" component={Dashboard} />
@@ -41,12 +27,8 @@ function App() {
             <Route path="/signup">
             <Signup/>
           </Route>
-          <Route path="/preferences">
-            <Home />
-          </Route>
           <Route path="/profile">
              <PrivateRoute path="/profile" component={ProfileUpdate} />
-
           </Route>
         </Switch>
         </div>

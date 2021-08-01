@@ -6,36 +6,47 @@ import Img from './Img.png'
 import './Login.css'
 
 export default function Dashboard() {
+  const [first_name, setFirst_name] = useState("");
+  const [last_name, setLast_name] = useState("");
+  const [user_Name, setUser_Name] = useState("");
+  const [email, setEmail] = useState("");
+  const [city, setCity] = useState("");
+  const [country, setCountry] = useState("");
+  const [portfolio, setPortfolio] = useState("");
+  const [bio, setBio] = useState("");
+  const [skills, setSkills] = useState("");
   const [message, setMessage] = useState('')
-  const [currentNumber, setCurrentNumber] = useState('');
-  const [currentUsername, setCurrentUsername] = useState('');
-  const [profilePhoto, setProfilePhoto] = useState('');
-  const [username,setUsername] = useState('');
-  const [firstname, setFirstname] = useState('');
-  const [lastname, setLastname] = useState('');
-  const [gender, setGender] = useState('');
-  const [phonenumber, setPhonenumber] = useState('');
+
+
+
+
 
   useEffect(() => {
-    authFetch(BackUrl+'dashboard').then(response => {
+    authFetch(BackUrl+'profile_details').then(response => {
       if (response.status === 401){
         setMessage("Sorry you aren't authorized!")
         return null
       }
       return response.json()
     }).then(data => {
-            setCurrentNumber(data.profile.phonenumber);
-            setCurrentUsername(data.profile.username);
-            setImg(data.profile.profile_photo);
-            setUsername(data.profile.username);
-            setFirstname(data.profile.firstname);
-            setLastname(data.profile.lastname);
-            setGender(data.profile.gender);
-            setPhonenumber(data.profile.phonenumber);
-            setDob(data.profile.dob);
-            setIsPageLoading(false);
+        /*if (data && data.profile){
+            setMessage(data.profile)
+            }
+          else {
+            alert("something not right")
+          }*/
+            setFirst_name(data.profile.First_name);
+            setLast_name(data.profile.Last_name);
+            setUser_Name(data.profile.User_Name);
+            setEmail(data.profile.email);
+            setCity(data.profile.City);
+            setCountry(data.profile.Country);
+            setPortfolio(data.profile.Portfolio);
+            setBio(data.profile.Bio);
+            setSkills(data.profile.Skills);
+
       }
-    })
+    )
   }, [])
 
 
@@ -45,32 +56,44 @@ export default function Dashboard() {
 
   return (
     <div className="App">
-            <h2>Secret: {message}</h2>
-      <div className="user-deets">
-        <img src={Img} alt={user.name} />
-
-        <h3>
-          <a href={url}>{user.name}</a>
-        </h3>
-
-        <p>
-          <strong>Location</strong> {user.location}
-        </p>
-        <p>
-          <strong>Eats</strong> {user.foodType}
-        </p>
-        <p>
-          <strong>Age</strong> {user.age}
-        </p>
-        <p>
-          <strong>Likes</strong> {user.likes}
-        </p>
-
-        <p>
-          <strong>Twitter</strong>{' '}
-          <a>@{user.twitterUsername}</a>
-        </p>
-      </div>
+        <span>
+        <label>
+          <p>User_Name</p>
+          <p>{first_name}</p>
+        </label>
+        <label>
+          <p>last_name</p>
+          <p>{last_name}</p>
+        </label>
+        <label>
+          <p>user_Name</p>
+          <p>{user_Name}</p>
+        </label>
+        <label>
+          <p>email</p>
+          <p>{email}</p>
+        </label>
+        <label>
+          <p>city</p>
+          <p>{city}</p>
+        </label>
+        <label>
+          <p>country</p>
+          <p>{country}</p>
+        </label>
+        <label>
+          <p>portfolio</p>
+          <p>{portfolio}</p>
+        </label>
+        <label>
+          <p>bio</p>
+          <p>{bio}</p>
+        </label>
+        <label>
+          <p>skills</p>
+          <p>{skills}</p>
+        </label>
+            </span>
     </div>
   )
 }
