@@ -2,6 +2,7 @@ import {useHistory} from "react-router-dom";
 import BackUrl from "../BackUrl";
 import {authFetch, login} from "../authenticatiom/auth";
 import React, {useState} from 'react';
+import {EmailCheck} from "./Checkups";
 
 export default function ProfileUpdate(){
   const [first_name, setFirst_name] = useState("");
@@ -38,7 +39,10 @@ export default function ProfileUpdate(){
         "Content-type":"application/json"
       }
     }
-
+  if(!EmailCheck(email)){
+            alert("wrong email formart")
+         }
+  else{
     fetch(BackUrl+'profile', opts)
         .then(resp =>{
           if (resp.status === 401){
@@ -58,6 +62,7 @@ export default function ProfileUpdate(){
         .catch(error =>{
           console.error("there was an error", error)
         },[])
+    }
   }
 
 
