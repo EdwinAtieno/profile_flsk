@@ -13,6 +13,9 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const history = useHistory();
 
+  const singup = (e) =>{
+      history.push('/signup')
+  }
 
   const handleClick = (e) =>{
     e.preventDefault()
@@ -69,14 +72,11 @@ export default function Login() {
         <div>
           <button type="submit" onClick={handleClick}>Submit</button>
         </div>
+                <div className="signup" onClick={singup}>
+            <button>SignUp</button>
+        </div>
       </form>
-        <form action="">
-                    <label >
-                        <h3>
-                        <a href="/signup"> <p>Don't have an account? </p></a>
-                            </h3>
-                    </label>
-                </form>
+
         </span>
 
             
