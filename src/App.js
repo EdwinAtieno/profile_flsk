@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch,Link } from 'react-router-dom';
 import './App.css';
 import { useState } from 'react';
 import Login from "./components/Login";
-
+import PrivateRoute from "./authenticatiom/PrivateRoute";
 import Signup from "./components/Signup";
 import ProfileUpdate from "./components/ProfileUpdate";
 
@@ -33,7 +33,7 @@ function App() {
         </nav>
         <Switch>
           <Route path="/dashboard">
-            <Dashboard/>
+           <PrivateRoute path="/dashboard" component={Dashboard} />
           </Route>
           <Route path="/login">
             <Login/>
@@ -45,7 +45,8 @@ function App() {
             <Home />
           </Route>
           <Route path="/profile">
-            <ProfileUpdate />
+             <PrivateRoute path="/profile" component={ProfileUpdate} />
+
           </Route>
         </Switch>
         </div>

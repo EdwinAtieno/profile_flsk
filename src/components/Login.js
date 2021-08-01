@@ -11,8 +11,6 @@ export default function Login() {
   const history = useHistory();
 
 
-
-
   const handleClick = (e) =>{
     e.preventDefault()
     console.log("you pressed login ")
@@ -35,7 +33,7 @@ export default function Login() {
         .then(data =>{
            if(data.access_token){
                     login(data)
-                    history.push("/dashboard")}
+               history.push("/dashboard")}
            else {
           alert("Please type in correct username/password")
         }
