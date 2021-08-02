@@ -21,6 +21,9 @@ function App() {
           <Route path="/dashboard">
            <PrivateRoute path="/dashboard" component={Dashboard} />
           </Route>
+          <Route path="/home">
+            <Home />
+          </Route>
           <Route path="/login">
             <Login/>
           </Route>

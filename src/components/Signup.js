@@ -2,6 +2,7 @@ import './Login.css';
 import React, {useState} from "react";
 import BackUrl from "../BackUrl";
 import {EmailCheck, Passwordcheck, PasswordValidator} from "./Checkups";
+import {useHistory} from "react-router-dom";
 
 
 
@@ -10,6 +11,8 @@ export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmpassword, setConfirmassword] = useState("");
+  const history = useHistory();
+
   const singin = (e) =>{
       history.push('/signup')
   }
